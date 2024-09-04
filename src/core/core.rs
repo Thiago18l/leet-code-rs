@@ -3,6 +3,8 @@
 Two sum problem
 */
 
+use std::vec;
+
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = std::collections::HashMap::new();
     for (i, num) in nums.iter().enumerate() {
@@ -70,4 +72,44 @@ impl Solution {
         }
         max as i32
     }
+
+    pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
+      let mut nums = vec![nums1, nums2].concat();
+      nums.sort();
+      let n = nums.len();
+      if n % 2 == 0 {
+          (nums[n / 2 - 1] + nums[n / 2]) as f64 / 2.0
+      } else {
+          nums[n / 2] as f64
+      }
+    }
+    /*
+    given a string s, return the longest palindromic substring in s
+     */
+    pub fn longest_palindrome(s: String) -> String {
+      let n = s.len();
+      let mut start = 0;
+      let mut end = 0;
+
+      for i in 0..n {
+        let len1 = expand_around_center(&s, i, i);
+        let len2 = expand_around_center(&s, i, i + 1);
+        let len = std::cmp::max(len1, len2);
+        if len > end - start {
+          start = i - (len - 1) / 2;
+          end = i + len / 2;
+        }
+      }
+
+      fn expand_around_center(s: &str, left: usize, right: usize) -> usize {
+        let mut l = left;
+        let mut r = right;
+        while l < s.len() && r < s.len() && s.chars().nth(l) == s.chars().nth(r) {
+          l -= 1;
+          r += 1;
+        }
+        r - l - 1
+      }
+    }
+
 }

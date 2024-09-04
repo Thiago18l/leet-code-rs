@@ -50,4 +50,10 @@ mod tests {
         assert_eq!(core::core::Solution::longest_substring_without_repeating_characters("bbbbb".to_string()), 1);
         assert_eq!(core::core::Solution::longest_substring_without_repeating_characters("pwwkew".to_string()), 3);
     }
+
+    #[test]
+    pub fn test_median_of_arrays_sorted() {
+        assert_eq!(core::core::Solution::find_median_sorted_arrays(vec![1, 3], vec![2]), 2.0);
+        assert_eq!(core::core::Solution::find_median_sorted_arrays(vec![1, 2], vec![3, 4]), 2.5);
+    }
 }
