@@ -1,7 +1,7 @@
 use std::borrow::BorrowMut;
 
 
-
+#[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
     pub val: i32,
     pub left: Option<Box<TreeNode>>,
@@ -9,7 +9,7 @@ pub struct TreeNode {
 }
 
 impl TreeNode {
-
+    #[allow(dead_code)]
     pub fn new(val: i32) -> Self {
         TreeNode {
             val,
@@ -17,7 +17,7 @@ impl TreeNode {
             right: None,
         }
     }
-
+    #[allow(dead_code)]
     pub fn reverse_tree(root: Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
         let root = root;
         if root.is_none() {
@@ -31,7 +31,8 @@ impl TreeNode {
         root.right = Self::reverse_tree(root.right);
         Some(root)
     }
-
+    #[allow(dead_code)]
+    #[doc = "Reverse a binary tree using recursion and match approach"]
     pub fn reverse_tree_rc(root: Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
       match root {
         None => None,
