@@ -59,6 +59,7 @@ impl Solution {
         dummy_head.unwrap().next
     }
 
+    #[allow(unused)]
     pub fn longest_substring_without_repeating_characters(s: String) -> i32 {
         let mut map = std::collections::HashMap::new();
         let mut max = 0;
@@ -72,7 +73,7 @@ impl Solution {
         }
         max as i32
     }
-
+    #[allow(unused)]
     pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
       let mut nums = vec![nums1, nums2].concat();
       nums.sort();
@@ -102,14 +103,15 @@ impl Solution {
       }
 
       fn expand_around_center(s: &str, left: usize, right: usize) -> usize {
-        let mut l = left;
+        let mut l = left as isize;
         let mut r = right;
-        while l < s.len() && r < s.len() && s.chars().nth(l) == s.chars().nth(r) {
+        while l >= 0 && r < s.len() && s.chars().nth(l as usize) == s.chars().nth(r) {
           l -= 1;
           r += 1;
         }
-        r - l - 1
+        (r as isize - l - 1) as usize
       }
+      return s[start..end + 1].to_string();
     }
 
 }
