@@ -80,4 +80,14 @@ mod tests {
             "bb".to_string()
         );
     }
+
+    #[test]
+    fn test_atoi() {
+        assert_eq!(Solution::atoi("42".to_string()), 42);
+        assert_eq!(Solution::atoi("   -42".to_string()), -42);
+        assert_eq!(Solution::atoi("4193 with words".to_string()), 4193);
+        assert_eq!(Solution::atoi("words and 987".to_string()), 0);
+        assert_eq!(Solution::atoi("-91283472332".to_string()), i32::MIN);
+        assert_eq!(Solution::atoi("91283472332".to_string()), i32::MAX);
+    }
 }

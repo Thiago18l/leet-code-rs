@@ -114,4 +114,60 @@ impl Solution {
       return s[start..end + 1].to_string();
     }
 
+    #[allow(unused)]
+    pub fn reverse_integer(x: i32) -> i32 {
+        let mut x = x;
+        let mut rev = 0;
+        while x != 0 {
+            let pop = x % 10;
+            x /= 10;
+            if rev > i32::MAX / 10 || (rev == i32::MAX / 10 && pop > 7) {
+                return 0;
+            }
+            if rev < i32::MIN / 10 || (rev == i32::MIN / 10 && pop < -8) {
+                return 0;
+            }
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+
+    #[allow(unused)]
+    pub fn atoi(s: String) -> i32 {
+        let mut s = s.trim();
+        let mut chars = s.chars();
+        let mut sign: i32 = 1;
+        if let Some(c) = chars.next() {
+            if c == '-' {
+                sign = -1;
+                s = chars.as_str();
+            } else if c == '+' {
+                s = chars.as_str();
+            } else {
+                chars = s.chars();
+            }
+        }
+        let mut result: i32 = 0;
+        for c in s.chars() {
+            if let Some(d) = c.to_digit(10) {
+                result = result.checked_mul(10).and_then(|r| r.checked_add(d as i32)).unwrap_or_else(|| {
+                    if sign == 1 {
+                        i32::MAX
+                    } else {
+                        i32::MIN
+                    }
+                });
+            } else {
+                break;
+            }
+        }
+        result = result.checked_mul(sign).unwrap_or_else(|| {
+            if sign == 1 {
+                i32::MAX
+            } else {
+                i32::MIN
+            }
+        });
+        return result;
+    }
 }
