@@ -59,6 +59,7 @@ impl Solution {
         dummy_head.unwrap().next
     }
 
+    #[allow(unused)]
     pub fn longest_substring_without_repeating_characters(s: String) -> i32 {
         let mut map = std::collections::HashMap::new();
         let mut max = 0;
@@ -72,7 +73,7 @@ impl Solution {
         }
         max as i32
     }
-
+    #[allow(unused)]
     pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
       let mut nums = vec![nums1, nums2].concat();
       nums.sort();
@@ -102,15 +103,71 @@ impl Solution {
       }
       #[doc = "expand around center is a helper function to find the longest palindrome"]
       fn expand_around_center(s: &str, left: usize, right: usize) -> usize {
-        let mut l = left;
+        let mut l = left as isize;
         let mut r = right;
-        while l < s.len() && r < s.len() && s.chars().nth(l) == s.chars().nth(r) {
+        while l >= 0 && r < s.len() && s.chars().nth(l as usize) == s.chars().nth(r) {
           l -= 1;
           r += 1;
         }
-        r - l - 1
+        (r as isize - l - 1) as usize
       }
-      return s[start..=end].to_string();
+      return s[start..end + 1].to_string();
     }
 
+    #[allow(unused)]
+    pub fn reverse_integer(x: i32) -> i32 {
+        let mut x = x;
+        let mut rev = 0;
+        while x != 0 {
+            let pop = x % 10;
+            x /= 10;
+            if rev > i32::MAX / 10 || (rev == i32::MAX / 10 && pop > 7) {
+                return 0;
+            }
+            if rev < i32::MIN / 10 || (rev == i32::MIN / 10 && pop < -8) {
+                return 0;
+            }
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+
+    #[allow(unused)]
+    pub fn atoi(s: String) -> i32 {
+        let mut s = s.trim();
+        let mut chars = s.chars();
+        let mut sign: i32 = 1;
+        if let Some(c) = chars.next() {
+            if c == '-' {
+                sign = -1;
+                s = chars.as_str();
+            } else if c == '+' {
+                s = chars.as_str();
+            } else {
+                chars = s.chars();
+            }
+        }
+        let mut result: i32 = 0;
+        for c in s.chars() {
+            if let Some(d) = c.to_digit(10) {
+                result = result.checked_mul(10).and_then(|r| r.checked_add(d as i32)).unwrap_or_else(|| {
+                    if sign == 1 {
+                        i32::MAX
+                    } else {
+                        i32::MIN
+                    }
+                });
+            } else {
+                break;
+            }
+        }
+        result = result.checked_mul(sign).unwrap_or_else(|| {
+            if sign == 1 {
+                i32::MAX
+            } else {
+                i32::MIN
+            }
+        });
+        return result;
+    }
 }
