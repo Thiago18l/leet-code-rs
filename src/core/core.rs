@@ -100,7 +100,7 @@ impl Solution {
           end = i + len / 2;
         }
       }
-
+      #[doc = "expand around center is a helper function to find the longest palindrome"]
       fn expand_around_center(s: &str, left: usize, right: usize) -> usize {
         let mut l = left;
         let mut r = right;
@@ -110,6 +110,7 @@ impl Solution {
         }
         r - l - 1
       }
+      return s[start..=end].to_string();
     }
 
 }
