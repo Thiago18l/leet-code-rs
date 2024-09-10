@@ -188,7 +188,8 @@ impl Solution {
 
 #[cfg(test)]
 mod test {
-    use crate::core::core::Solution;
+
+    use super::*;
 
   #[test]
   fn test_longest_common_prefix() {
