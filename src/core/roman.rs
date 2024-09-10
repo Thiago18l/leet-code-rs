@@ -9,10 +9,8 @@ impl Roman {
         Roman { value }
     }
 
-    fn to_string(&self) -> String {
-        let mut value = self.value;
-        let mut result = String::new();
-        let roman_numerals = [
+    fn numerals(&self) -> Vec<(u32, &str)> {
+        vec![
             (1000, "M"),
             (900, "CM"),
             (500, "D"),
@@ -26,7 +24,13 @@ impl Roman {
             (5, "V"),
             (4, "IV"),
             (1, "I"),
-        ];
+        ]
+    }
+
+    fn to_string(&self) -> String {
+        let mut value = self.value;
+        let mut result = String::new();
+        let roman_numerals = self.numerals();
 
         for &(num, numeral) in roman_numerals.iter() {
             while value >= num {
@@ -40,21 +44,7 @@ impl Roman {
     fn to_int(&self, string: String) -> u32 {
       let mut result = 0;
       let mut value = string;
-      let roman_numerals = [
-          (1000, "M"),
-          (900, "CM"),
-          (500, "D"),
-          (400, "CD"),
-          (100, "C"),
-          (90, "XC"),
-          (50, "L"),
-          (40, "XL"),
-          (10, "X"),
-          (9, "IX"),
-          (5, "V"),
-          (4, "IV"),
-          (1, "I"),
-      ];
+      let roman_numerals = self.numerals();
       for &(num, numeral) in roman_numerals.iter() {
           while value.starts_with(numeral) {
               result += num;
